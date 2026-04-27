@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nguyễn Hồng Quang — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --space-dark: #0a0e27;
+    --space-darker: #050815;
+    --nebula-purple: #8b5cf6;
+    --nebula-blue: #3b82f6;
+    --cyber-cyan: #00f0ff;
+    --cyber-pink: #ff006e;
+    --star-white: #e0e7ff;
+    --glow-green: #00ff88;
+    --text-dim: #94a3b8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--space-darker);
+    color: var(--star-white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── Space Canvas Background ── */
+  #space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Nebula Gradients ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: 0;
+    animation: nebulaPulse 8s ease-in-out infinite;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -30%;
+    left: -10%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: 0;
+    animation: nebulaPulse 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes nebulaPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+
+  /* ── Grid Scanlines ── */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: 
+      linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+    animation: scanMove 20s linear infinite;
+  }
+
+  @keyframes scanMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(10,14,39,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,240,255,0.2);
+    box-shadow: 0 0 30px rgba(0,240,255,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--cyber-cyan);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 10px rgba(0,240,255,0.5);
+    position: relative;
+  }
+
+  .nav-logo::before {
+    content: '[ ';
+    color: var(--glow-green);
+  }
+
+  .nav-logo::after {
+    content: ' ]';
+    color: var(--glow-green);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyber-cyan), var(--nebula-purple));
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: var(--cyber-cyan);
+    text-shadow: 0 0 10px rgba(0,240,255,0.6);
+  }
+
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── Hero ── */
+  #hero {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-content { max-width: 800px; }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--glow-green);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: glitchText 3s infinite;
+  }
+
+  .hero-tag::before {
+    content: '>';
+    color: var(--cyber-cyan);
+    font-size: 1.2rem;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes glitchText {
+    0%, 90%, 100% { text-shadow: none; }
+    92% { text-shadow: 2px 0 var(--cyber-pink), -2px 0 var(--cyber-cyan); }
+    94% { text-shadow: -2px 0 var(--cyber-pink), 2px 0 var(--cyber-cyan); }
+  }
+
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #fff 0%, var(--cyber-cyan) 50%, var(--nebula-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 80px rgba(0,240,255,0.3);
+    position: relative;
+  }
+
+  h1::after {
+    content: '_';
+    position: absolute;
+    color: var(--glow-green);
+    animation: blink 1s step-end infinite;
+    -webkit-text-fill-color: var(--glow-green);
+    margin-left: 10px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-top: 2rem;
+    max-width: 600px;
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--cyber-cyan), var(--nebula-purple));
+    color: #000;
+    border: none;
+    box-shadow: 0 0 30px rgba(0,240,255,0.4);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 50px rgba(0,240,255,0.6);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cyber-cyan);
+    border: 2px solid var(--cyber-cyan);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .btn-outline:hover {
+    background: rgba(0,240,255,0.1);
+    box-shadow: 0 0 30px rgba(0,240,255,0.3);
+    transform: translateY(-3px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(0,240,255,0.2);
+  }
+
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--glow-green), var(--cyber-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    text-shadow: 0 0 30px rgba(0,255,136,0.3);
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+  }
+
+  /* ── Sections ── */
+  section {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 4rem;
+  }
+
+  .section-header {
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .section-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--cyber-cyan);
+    opacity: 0.3;
+  }
+
+  h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff, var(--cyber-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyber-cyan), transparent);
+  }
+
+  /* ── Tech Cards ── */
+  .skills-grid, .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-card, .project-card {
+    background: rgba(10,14,39,0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,240,255,0.2);
+    padding: 2rem;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  }
+
+  .skill-card::before, .project-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--cyber-cyan), var(--nebula-purple), var(--cyber-pink));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  }
+
+  .skill-card:hover::before, .project-card:hover::before {
+    opacity: 0.6;
+  }
+
+  .skill-card:hover, .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0,240,255,0.3);
+  }
+
+  .skill-cat {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--glow-green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name, .project-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyber-cyan);
+    background: rgba(0,240,255,0.1);
+    border: 1px solid rgba(0,240,255,0.3);
+    padding: 0.3rem 0.8rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+
+  .tag:hover {
+    background: rgba(0,240,255,0.2);
+    box-shadow: 0 0 10px rgba(0,240,255,0.4);
+  }
+
+  /* ── Experience ── */
+  .exp-card {
+    background: rgba(10,14,39,0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,240,255,0.2);
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .exp-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .exp-company {
+    color: var(--cyber-cyan);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .exp-period {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--glow-green);
+    background: rgba(0,255,136,0.1);
+    border: 1px solid rgba(0,255,136,0.3);
+    padding: 0.5rem 1.2rem;
+    white-space: nowrap;
+  }
+
+  .exp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .exp-list li {
+    font-size: 1rem;
+    color: var(--text-dim);
+    padding-left: 2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .exp-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyber-cyan);
+    font-size: 1.2rem;
+  }
+
+  .exp-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,240,255,0.2);
+  }
+
+  /* ── Projects ── */
+  .project-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(139,92,246,0.2));
+    border: 2px solid var(--cyber-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+  }
+
+  .project-desc {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin: 1.5rem 0;
+  }
+
+  .project-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--cyber-cyan);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    margin-top: auto;
+  }
+
+  .project-link:hover {
+    gap: 1rem;
+    text-shadow: 0 0 10px rgba(0,240,255,0.6);
+  }
+
+  /* ── About ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--cyber-cyan);
+    font-weight: 600;
+  }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    background: rgba(10,14,39,0.5);
+    border: 1px solid rgba(0,240,255,0.2);
+    backdrop-filter: blur(10px);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .detail-key {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--glow-green);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .detail-val {
+    color: var(--star-white);
+    font-weight: 500;
+  }
+
+  /* ── Contact ── */
+  .contact-inner {
+    background: rgba(10,14,39,0.5);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0,240,255,0.3);
+    padding: 5rem;
+    text-align: center;
+    position: relative;
+    clip-path: polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px);
+    box-shadow: 0 0 60px rgba(0,240,255,0.2);
+  }
+
+  .contact-email {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--glow-green), var(--cyber-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    display: block;
+    margin: 2rem 0 3rem;
+    transition: all 0.3s;
+  }
+
+  .contact-email:hover {
+    text-shadow: 0 0 30px rgba(0,240,255,0.6);
+    transform: scale(1.05);
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid rgba(0,240,255,0.3);
+    transition: all 0.3s;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .contact-link:hover {
+    color: var(--cyber-cyan);
+    border-color: var(--cyber-cyan);
+    background: rgba(0,240,255,0.1);
+    box-shadow: 0 0 20px rgba(0,240,255,0.3);
+  }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    border-top: 1px solid rgba(0,240,255,0.2);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Animations ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { gap: 1.5rem; font-size: 0.75rem; }
+    #hero, section { padding: 5rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .contact-inner { padding: 3rem 2rem; }
+    h1 { font-size: 3rem; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+    h1 { font-size: 2.5rem; }
+    .section-num { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Space Canvas for Stars & Particles -->
+<canvas id="space-canvas"></canvas>
+<div class="scanlines"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#hero" class="nav-logo">NHQ.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div id="hero">
+  <div class="hero-content">
+    <p class="hero-tag">Software Engineer · Backend Developer</p>
+    <h1>
+      NGUYỄN<br>
+      HỒNG<br>
+      QUANG
+    </h1>
+    <p class="hero-sub">
+      Backend-focused developer với kinh nghiệm thực chiến trong xây dựng hệ thống RESTful API, kiến trúc microservices và tích hợp DevOps. Đam mê viết code sạch, tối ưu hóa hiệu suất và làm việc trong môi trường Agile.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Liên hệ ngay</a>
+      <a href="#projects" class="btn btn-outline">Xem dự án</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">2+</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div>
+        <span class="stat-num">1+</span>
+        <span class="stat-label">Year Exp.</span>
+      </div>
+      <div>
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Tech Stacks</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- About -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2>About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Tôi là <strong>Nguyễn Hồng Quang</strong>, một Backend Developer đến từ Hà Nội, hiện đang làm việc tại <strong>HACOM Company</strong>. Tôi chuyên phát triển các hệ thống API mạnh mẽ, tối ưu cơ sở dữ liệu và xây dựng kiến trúc phần mềm có khả năng mở rộng cao.
+      </p>
+      <p>
+        Với nền tảng vững chắc về <strong>C# và ASP.NET Core</strong>, tôi đã tham gia phát triển nhiều hệ thống thực tế từ quản lý nhân sự, điểm bán hàng (POS) đến kho vận và quản lý tài liệu. Tôi luôn chú trọng vào phân tích yêu cầu, thiết kế hệ thống và giao tiếp hiệu quả trong team.
+      </p>
+      <p>
+        Sinh ngày <strong>12/12/2003</strong>, tôi đang theo học Công nghệ Thông tin tại <strong>Đại học Kinh tế - Kỹ thuật Công nghiệp (UNETI)</strong>, dự kiến tốt nghiệp năm 2025. Ngoài kỹ năng kỹ thuật, tôi còn quen thuộc với việc sử dụng AI agents để hỗ trợ coding và nâng cao hiệu quả phát triển.
+      </p>
+    </div>
+    <div class="about-details reveal">
+      <div class="detail-item">
+        <span class="detail-key">Location</span>
+        <span class="detail-val">Hà Nội, Việt Nam</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-key">University</span>
+        <span class="detail-val">UNETI · 2021–2025</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-key">Email</span>
+        <span class="detail-val">quang12104@gmail.com</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-key">Phone</span>
+        <span class="detail-val">0858 939 388</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-key">Status</span>
+        <span class="detail-val" style="color:var(--glow-green)">● AVAILABLE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2>Tech Stack</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <p class="skill-cat">Backend</p>
+      <p class="skill-name">Core Development</p>
+      <div class="skill-tags">
+        <span class="tag">C#</span>
+        <span class="tag">ASP.NET Core</span>
+        <span class="tag">Web API</span>
+        <span class="tag">RESTful API</span>
+        <span class="tag">JWT</span>
+        <span class="tag">OAuth2</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="skill-cat">Data Layer</p>
+      <p class="skill-name">Database & Caching</p>
+      <div class="skill-tags">
+        <span class="tag">SQL Server</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Entity Framework</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Oracle</span>
+        <span class="tag">ODI</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="skill-cat">Architecture</p>
+      <p class="skill-name">System Design</p>
+      <div class="skill-tags">
+        <span class="tag">Clean Architecture</span>
+        <span class="tag">Microservices</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Docker Compose</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="skill-cat">Tooling</p>
+      <p class="skill-name">Dev Tools & Process</p>
+      <div class="skill-tags">
+        <span class="tag">Git</span>
+        <span class="tag">Postman</span>
+        <span class="tag">Swagger</span>
+        <span class="tag">Agile / Scrum</span>
+        <span class="tag">AI-assisted</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2>Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-card reveal">
+    <div class="exp-header">
+      <div>
+        <p class="exp-title">Backend Developer</p>
+        <p class="exp-company">HACOM COMPANY</p>
+      </div>
+      <span class="exp-period">02/2025 — PRESENT</span>
+    </div>
+    <ul class="exp-list">
+      <li><strong style="color:#fff">Document Management:</strong> Tham gia thiết kế hệ thống & database, phát triển API cho quy trình tài liệu và quản lý nội bộ.</li>
+      <li><strong style="color:#fff">HRMS Project:</strong> Đóng góp vào thiết kế workflow & database, phát triển API cho nghỉ phép, chấm công, tăng ca và phân quyền.</li>
+      <li><strong style="color:#fff">POS System:</strong> Phát triển API đơn hàng mua, trả hàng, quản lý kho; xây dựng stored procedures cho xuất báo cáo Excel; hỗ trợ tích hợp PayPal.</li>
+      <li><strong style="color:#fff">Shipping & Testing:</strong> Phát triển API chuyển kho; triển khai stored procedures kiểm soát truy cập cấp chi nhánh.</li>
+      <li><strong style="color:#fff">Software Outsourcing:</strong> Sử dụng Oracle ODI để làm sạch và chuyển đổi dữ liệu cho các dự án migration doanh nghiệp.</li>
+    </ul>
+    <div class="exp-tech">
+      <span class="tag">C#</span>
+      <span class="tag">ASP.NET Core</span>
+      <span class="tag">SQL Server</span>
+      <span class="tag">Oracle ODI</span>
+      <span class="tag">Agile/Scrum</span>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2>Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-icon">🏢</div>
+      <p class="project-name">WebApiAi (HRMS)</p>
+      <p class="project-desc">
+        Hệ thống quản lý nhân sự tập trung vào nguồn lực doanh nghiệp. Phát triển kiến trúc <strong>Clean Architecture (DDD)</strong> giúp hệ thống dễ dàng mở rộng. Xây dựng giao diện quản lý nhân viên, phòng ban và bảng lương tối ưu. Docker hóa toàn diện và sử dụng Nginx.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1rem;">
+        <span class="tag">.NET Core</span>
+        <span class="tag">DDD</span>
+        <span class="tag">React</span>
+        <span class="tag">SignalR</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Nginx</span>
+      </div>
+      <a href="https://hrsoftware.id.vn/login" target="_blank" class="project-link">
+        LIVE DEMO →
+      </a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-icon">💼</div>
+      <p class="project-name">WebJob (Job Portal)</p>
+      <p class="project-desc">
+        Nền tảng tuyển dụng trực tuyến kết nối ứng viên & nhà tuyển dụng. Quản lý CV với <strong>Drag-and-drop</strong>, thông báo <strong>SignalR</strong> thời gian thực. Tối ưu hiệu suất bằng <strong>Redis cache</strong> và <strong>Oracle Database</strong>.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1rem;">
+        <span class="tag">.NET Core</span>
+        <span class="tag">Oracle DB</span>
+        <span class="tag">Redis</span>
+        <span class="tag">React 19</span>
+        <span class="tag">Tailwind v4</span>
+        <span class="tag">SignalR</span>
+      </div>
+      <a href="https://webjob.hrsoftware.id.vn/" target="_blank" class="project-link">
+        LIVE DEMO →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2>Let's Connect</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-inner reveal">
+    <p style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--glow-green); letter-spacing:0.15em; text-transform:uppercase;">SẴN SÀNG HỢP TÁC CHO DỰ ÁN TIẾP THEO</p>
+    <a href="mailto:quang12104@gmail.com" class="contact-email">quang12104@gmail.com</a>
+    <div class="contact-links">
+      <a href="tel:0858939388" class="contact-link">📞 0858 939 388</a>
+      <a href="https://www.linkedin.com/in/quang-nguy%E1%BB%85n-954361376/" target="_blank" class="contact-link">LINKEDIN</a>
+      <a href="https://hrsoftware.id.vn/login" target="_blank" class="contact-link">HRMS DEMO</a>
+      <a href="https://webjob.hrsoftware.id.vn/" target="_blank" class="contact-link">JOB PORTAL</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 NGUYỄN HỒNG QUANG · BUILT WITH ❤️ · HÀ NỘI, VIỆT NAM</p>
+</footer>
+
+<script>
+  // ── Space Canvas: Stars & Particles Animation ──
+  const canvas = document.getElementById('space-canvas');
+  const ctx = canvas.getContext('2d');
+  
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.body.scrollHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Stars
+  const stars = [];
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      opacity: Math.random(),
+      twinkleSpeed: Math.random() * 0.02 + 0.005
+    });
+  }
+
+  // Particles
+  const particles = [];
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1,
+      color: Math.random() > 0.5 ? 'rgba(0,240,255,0.6)' : 'rgba(139,92,246,0.6)'
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw stars
+    stars.forEach(star => {
+      star.opacity += star.twinkleSpeed;
+      if (star.opacity > 1 || star.opacity < 0) star.twinkleSpeed *= -1;
+      
+      ctx.fillStyle = `rgba(224,231,255,${star.opacity})`;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Draw and move particles
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw connections
+      particles.forEach(p2 => {
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 120) {
+          ctx.strokeStyle = `rgba(0,240,255,${0.15 * (1 - dist / 120)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      });
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // ── Scroll Reveal Animation ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Parallax Effect on Scroll ──
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const hero = document.getElementById('hero');
+    if (hero) {
+      hero.style.transform = `translateY(${scrollY * 0.3}px)`;
+    }
+  });
+</script>
+</body>
+</html>
